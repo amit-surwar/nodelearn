@@ -1,60 +1,52 @@
-# DevOps Learning Path — Complete Guide
+# AWS + DevOps Learning Path
 
-Your company uses: AWS, Jenkins, GitHub Actions, GitLab, Terraform, Ansible, Prometheus, Grafana, Docker, Kubernetes
-
-This folder contains hands-on exercises for EACH tool, using your nodelearn project.
+Learn step by step, hands-on, using your nodelearn project.
 
 ---
 
 ## The Path (follow in order)
 
-| Phase | Tool | Folder | Time | Status |
-|-------|------|--------|------|--------|
-| 2 | Docker Deep Dive | `docker/` | 3-5 days | START HERE |
-| 3 | AWS EC2 + CloudWatch | `aws/` | 3-5 days | After Docker |
-| 4 | Kubernetes | `kubernetes/` | 1-2 weeks | After AWS |
-| 5 | Terraform | `terraform/` | 1 week | After Kubernetes |
-| 6 | Ansible | `ansible/` | 1 week | After Terraform |
-| 7 | Prometheus + Grafana | `monitoring/` | 3-5 days | After Ansible |
-| 8 | Jenkins + GitLab CI | `jenkins/` | 3-5 days | After Monitoring |
+| Step | Topic | Folder | Time |
+|------|-------|--------|------|
+| 1 | IAM (Access Control) | `aws-core/` | 1 day |
+| 2 | VPC (Networking) | `aws-core/` | 1 day |
+| 3 | EC2 (Virtual Servers) | `aws-core/` | 2 days |
+| 4 | S3 (File Storage) | `aws-core/` | 1 day |
+| 5 | Docker (Containers) | `docker/` | 3 days |
+| 6 | ECS (Run Docker on AWS) | `aws-ecs/` | 3 days |
+| 7 | Amplify (Deploy React/Angular) | `aws-amplify/` | 2 days |
+| 8 | CodePipeline (CI/CD on AWS) | `aws-codepipeline/` | 2 days |
 
 ---
 
-## How Everything Connects
+## How It All Connects
 
 ```
-Code (GitHub)
-  |
-  v
-CI/CD (Jenkins/GitHub Actions) --- runs tests, builds Docker image
-  |
-  v
-Docker (Container) --- packages your app
-  |
-  v
-Kubernetes (Orchestration) --- runs containers at scale
-  |
-  v
-AWS EC2 (Infrastructure) --- servers that run Kubernetes
-  |
-  v
-Terraform (Infra as Code) --- creates AWS resources automatically
-  |
-  v
-Ansible (Config Management) --- configures servers automatically
-  |
-  v
-Prometheus + Grafana (Monitoring) --- watches everything
+Frontend (Angular/React)        Backend (Node.js)
+  │                               │
+  v                               v
+AWS Amplify (Step 7)            Docker (Step 5)
+  │                               │
+  │                               v
+  │                             AWS ECS (Step 6)
+  │                               │
+  └───── both deployed via ───────┘
+                │
+                v
+        AWS CodePipeline (Step 8)
+                │
+        runs inside ──→ VPC (Step 2)
+        uses ──→ IAM (Step 1) for permissions
+        uses ──→ EC2 (Step 3) for compute
+        uses ──→ S3 (Step 4) for storage
 ```
 
 ---
 
-## Rules for Learning
+## Rules
 
-1. ALWAYS do the exercises hands-on — don't just read
-2. Break things on purpose — then fix them
-3. Follow the order — each phase builds on the previous one
-4. Take notes — write down what each command does
-5. If stuck, re-read the exercise, then search, then ask
-
-Good luck!
+1. Do exercises hands-on — don't just read
+2. Follow the order — each step builds on the previous
+3. STOP EC2 instances when not using them (avoid charges)
+4. Delete resources after learning (avoid charges)
+5. We will do each step together — just tell me when ready
