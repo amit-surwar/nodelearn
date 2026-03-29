@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const { loadSecrets } = require("./config/secrets");
 const { connectDB } = require("./config/db");
 const userRoutes = require("./routes/userRoutes");
 const { errorHandler, notFoundHandler } = require("./middleware/errorHandler");
@@ -24,11 +25,17 @@ app.use("/api/v1/users", userRoutes);
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 3000;
+const start = async () => {
+  await loadSecrets();
 
-connectDB().then(() => {
+  const PORT = process.env.PORT || 3000;
+
+  await connectDB();
+
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || "development"} mode`);
     console.log(`Health check: http://localhost:${PORT}/api/v1/health`);
   });
-});
+};
+
+start();
